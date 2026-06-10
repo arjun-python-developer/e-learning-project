@@ -1,0 +1,95 @@
+{% extends 'base.html' %}
+{% block title %}Teacher Registration{% endblock %}
+
+{% block content %}
+
+<style>
+    body {
+        background: #f4f7fb;
+    }
+
+    .reg-container {
+        max-width: 500px;
+        margin: 40px auto;
+    }
+
+    .reg-card {
+        padding: 30px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.6);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        transition: 0.3s;
+    }
+
+    .reg-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 12px 30px rgba(0,0,0,0.15);
+    }
+
+    .reg-title {
+        text-align: center;
+        font-weight: 800;
+        font-size: 30px;
+        background: linear-gradient(45deg, #005c97, #363795);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-bottom: 20px;
+    }
+
+    .btn-premium {
+        background: linear-gradient(45deg, #1d976c, #2ecc71);
+        border: none;
+        padding: 12px 18px;
+        font-size: 18px;
+        font-weight: 600;
+        color: #fff;
+        width: 100%;
+        border-radius: 10px;
+        transition: 0.3s;
+    }
+
+    .btn-premium:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    .login-link {
+        text-align: center;
+        margin-top: 15px;
+        font-size: 15px;
+    }
+
+    .login-link a {
+        color: #005c97;
+        font-weight: 600;
+        text-decoration: none !important;
+    }
+
+    .login-link a:hover {
+        text-decoration: underline !important;
+    }
+
+</style>
+
+<div class="reg-container">
+    <div class="reg-card">
+
+        <h2 class="reg-title">Teacher Registration</h2>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+
+            <button type="submit" class="btn-premium">Register</button>
+        </form>
+
+        <p class="login-link">
+            Already have an account?
+            <a href="{% url 'login' %}">Login here</a>
+        </p>
+
+    </div>
+</div>
+
+{% endblock %}

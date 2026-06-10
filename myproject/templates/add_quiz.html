@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+    <h3 class="fw-bold text-primary mb-3">Add Quiz</h3>
+
+    <div class="card shadow p-4">
+        <form method="POST">
+            {% csrf_token %}
+            <label class="form-label">Quiz Title</label>
+            <input name="title" class="form-control" placeholder="Enter quiz title">
+
+            <button class="btn btn-success w-100 mt-3">
+                ✔ Create Quiz
+            </button>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

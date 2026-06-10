@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>Edit Course: {{ course.title }}</h2>
+
+    <form method="POST" enctype="multipart/form-data" class="card p-4 shadow mt-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+
+        <button class="btn btn-primary mt-2">Save Changes</button>
+        <a href="{% url 'teacher_dashboard' %}" class="btn btn-secondary mt-2">Cancel</a>
+    </form>
+
+</div>
+
+{% endblock %}

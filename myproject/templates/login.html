@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="text-center">Login</h2>
+    <form method="post" class="mx-auto mt-4" style="max-width: 400px;">
+        {% csrf_token %}
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-danger">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" id="username" required>
+        </div>
+        <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <input type="password" class="form-control" name="password" id="password" required>
+        </div>
+        <button type="submit" class="btn btn-success w-100">Login</button>
+    </form>
+    <p class="text-center mt-3">
+        Don't have an account? 
+        <a href="{% url 'teacher_register' %}">Teacher Register</a> | 
+        <a href="{% url 'student_register' %}">Student Register</a>
+    </p>
+</div>
+{% endblock %}

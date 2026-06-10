@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="fw-bold text-primary mb-3">Pending Teacher Approvals</h2>
+<hr>
+
+<table class="table table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for t in pending_teachers %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ t.username }}</td>
+            <td>{{ t.email }}</td>
+
+            <td>
+                <a href="{% url 'approve_teacher' t.id %}" class="btn btn-success btn-sm">✔ Approve</a>
+                <a href="{% url 'reject_teacher' t.id %}" class="btn btn-danger btn-sm">✖ Reject</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

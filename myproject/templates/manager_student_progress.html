@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2 class="fw-bold text-primary mb-3">Student Progress Overview</h2>
+<hr>
+
+<table class="table table-bordered table-hover align-middle">
+    <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Student</th>
+            <th>Course</th>
+            <th>Completed</th>
+            <th>Progress</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        {% for p in progress_data %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ p.student.username }}</td>
+            <td>{{ p.course.title }}</td>
+            <td>{{ p.completed }}/{{ p.total }}</td>
+
+            <td style="width: 250px;">
+                <div class="progress" style="height: 18px;">
+                    <div class="progress-bar 
+                         {% if p.progress == 100 %}
+                            bg-success
+                         {% elif p.progress >= 50 %}
+                            bg-info
+                         {% else %}
+                            bg-warning
+                         {% endif %}"
+                         style="width: {{ p.progress }}%;">
+                        {{ p.progress }}%
+                    </div>
+                </div>
+                
+            </td>
+            <td class="text-center">
+
+    {% if p.progress == 100 %}
+        <a href="{% url 'manager_generate_certificate' p.student.id p.course.id %}"
+           class="btn btn-success btn-sm">
+           🎓 Generate Certificate
+        </a>
+    {% else %}
+        <span class="badge bg-secondary">Incomplete</span>
+    {% endif %}
+
+</td>
+
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
+
+

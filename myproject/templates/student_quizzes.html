@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h2>Quizzes in {{ course.title }}</h2>
+<hr>
+
+<table class="table table-bordered">
+    {% for q in quizzes %}
+        <tr>
+            <td>{{ q.title }}</td>
+            <td>
+                <a href="{% url 'take_quiz' q.id %}" class="btn btn-primary">Start</a>
+            </td>
+        </tr>
+    {% empty %}
+        <tr><td>No quizzes available</td></tr>
+    {% endfor %}
+</table>
+
+{% endblock %}

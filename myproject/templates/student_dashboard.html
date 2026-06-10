@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-3">
+    
+    <h2 class="fw-bold text-primary m-0">Student Dashboard</h2>
+
+    <a href="{% url 'student_notifications' %}" 
+       class="btn btn-outline-primary position-relative">
+
+        🔔
+
+        {% if unread_count > 0 %}
+        <span class="position-absolute top-0 start-100 translate-middle 
+                     badge rounded-pill bg-danger">
+            {{ unread_count }}
+        </span>
+        {% endif %}
+    </a>
+
+</div>
+
+
+    <div class="row">
+
+        <!-- My Courses -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h4>My Courses</h4>
+                <p>Enrolled courses view cheyyan</p>
+                <a href="{% url 'my_courses' %}" class="btn btn-primary">View</a>
+            </div>
+        </div>
+
+        <!-- Available Courses -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h4>Available Courses</h4>
+                <p>Enroll cheyyan pattunna courses</p>
+                <a href="{% url 'available_courses' %}" class="btn btn-success">Browse</a>
+            </div>
+        </div>
+
+        <!-- Progress -->
+        <div class="col-md-4">
+            <div class="card shadow-sm p-3">
+                <h4>Application Status</h4>
+                <p>Ninte Application status</p>
+                <a href="{% url 'my_applications' %}" class="btn btn-info">Check</a>
+            </div>
+        </div>
+
+    </div>
+</div>
+{% endblock %}

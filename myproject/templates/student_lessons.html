@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="fw-bold text-primary">{{ course.title }} — Lessons</h2>
+    <div class="mb-4">
+    <h5 class="fw-bold text-primary">Progress: {{ progress }}%</h5>
+
+    <div class="progress" style="height: 22px; border-radius:12px;">
+        <div class="progress-bar" role="progressbar"
+             style="
+                width: {{ progress }}%;
+                background: linear-gradient(90deg, #28a745, #00c853);
+                font-weight:600;
+                border-radius:12px;
+             ">
+            {{ progress }}%
+        </div>
+    </div>
+</div>
+
+</div>
+
+    <hr>
+
+    <div class="accordion" id="lessonAccordion">
+
+        {% for lesson in lessons %}
+        <div class="accordion-item">
+            
+            <h2 class="accordion-header" id="heading{{ lesson.id }}">
+                <button class="accordion-button collapsed" type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#collapse{{ lesson.id }}"
+                        aria-expanded="false"
+                        aria-controls="collapse{{ lesson.id }}">
+                    
+                    {{ lesson.order }}. {{ lesson.title }}
+                </button>
+                {% if lesson.id in completed_ids %}
+    <span class="badge bg-success">Completed</span>
+{% else %}
+    <a href="{% url 'mark_lesson_complete' lesson.id %}" 
+       class="btn btn-sm btn-outline-success mt-2">
+        ✔ Mark as Completed
+    </a>
+{% endif %}
+
+             </h2>
+
+            <div id="collapse{{ lesson.id }}"
+                 class="accordion-collapse collapse"
+                 aria-labelledby="heading{{ lesson.id }}"
+                 data-bs-parent="#lessonAccordion">
+
+                <div class="accordion-body">
+
+                    {% if lesson.text_content %}
+                        <p>{{ lesson.text_content }}</p>
+                    {% endif %}
+
+                    {% if lesson.video %}
+                    <div class="ratio ratio-16x9 mb-2">
+                        <video controls>
+                        <source src="{{ lesson.video.url }}" type="video/mp4">
+                        </video>
+                    </div>
+{% endif %}
+
+
+                    {% if lesson.pdf %}
+                        <a href="{{ lesson.pdf.url }}" class="btn btn-primary mt-2" download>
+                            Download PDF
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+<div class="container mt-4">
+    <a href="{% url 'student_quiz_list' course.id %}" class="btn btn-success w-100">
+        View Quizzes
+    </a>
+</div>
+
+{% endblock %}
+

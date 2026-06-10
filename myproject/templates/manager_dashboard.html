@@ -1,0 +1,217 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<style>
+
+    body {
+        background: #f4f8fb;
+    }
+
+    /* Premium Gradient Title */
+    .premium-title {
+        font-weight: 800;
+        letter-spacing: 1px;
+        background: linear-gradient(45deg, #005c97, #363795);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    /* Remove underline from ALL links */
+    a {
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+    a:hover {
+        text-decoration: none !important;
+        color: inherit !important;
+    }
+
+    /* Premium Glass Cards */
+    .glass-card {
+        border-radius: 18px;
+        padding: 25px;
+        background: rgba(255, 255, 255, 0.55);
+        backdrop-filter: blur(10px);
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        transition: 0.3s ease;
+    }
+    .glass-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+    }
+
+    /* Section Title */
+    .section-title {
+        font-weight: 700;
+        font-size: 25px;
+        margin-top: 45px;
+        color: #14213d;
+    }
+
+    /* Premium Add Course Button */
+    .btn-premium {
+        background: linear-gradient(45deg, #1d976c, #2ecc71);
+        border-radius: 14px;
+        padding: 12px;
+        font-size: 18px;
+        font-weight: 700;
+        border: none;
+        transition: 0.3s ease;
+        color: #fff !important;
+    }
+    .btn-premium:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+    }
+
+    /* Premium Table */
+    .premium-table thead {
+        background: linear-gradient(45deg, #005c97, #363795);
+        color: white;
+    }
+    .premium-table tbody tr:hover {
+        background: rgba(0, 0, 0, 0.05);
+        cursor: pointer;
+    }
+
+</style>
+
+
+<h2 class="premium-title mb-3">Manager Dashboard</h2>
+<hr>
+
+
+
+<!-- TOP CARDS -->
+<div class="row text-center">
+
+    <div class="col-md-4 mb-4">
+        <div class="glass-card bg-success text-white">
+            <h1 class="fw-bold">{{ total_teachers }}</h1>
+            <p class="mb-0 fs-5">Total Teachers</p>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="glass-card bg-warning text-dark">
+            <h1 class="fw-bold">{{ total_students }}</h1>
+            <p class="mb-0 fs-5">Total Students</p>
+        </div>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <div class="glass-card bg-info text-white">
+            <h1 class="fw-bold">{{ total_courses }}</h1>
+            <p class="mb-0 fs-5">Total Courses</p>
+        </div>
+    </div>
+
+</div>
+
+
+
+
+
+<!-- LATEST COURSES -->
+<h3 class="section-title">📘 Latest Courses</h3>
+
+<a href="{% url 'manager_add_course' %}" class="btn btn-premium w-100 mb-4">
+    ➕ Add New Course
+</a>
+
+<div class="glass-card p-0">
+    <table class="table premium-table mb-0">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Course</th>
+                <th>Teacher</th>
+                <th>Action</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            {% for c in latest_courses %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ c.title }}</td>
+                <td>{{ c.teacher.username }}</td>
+                <td>
+                    <a href="{% url 'manager_edit_course' c.id %}" class="btn btn-warning btn-sm">
+                        ✏ Edit
+                    </a>
+                </td>
+                <td>
+                    <a href="{% url 'manager_delete_course' c.id %}"
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Delete this course?');">
+                        🗑 Delete
+                    </a>
+                </td>
+            </tr>
+
+            {% empty %}
+            <tr>
+                <td colspan="4" class="text-center text-muted py-3">No courses found</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+
+
+
+
+
+<!-- MANAGE SECTION -->
+<h3 class="section-title">⚙ Manage</h3>
+
+<div class="row">
+
+    <div class="col-md-4 mb-4">
+        <a href="{% url 'manage_users' %}">
+            <div class="glass-card bg-info text-white text-center">
+                <h1 class="fw-bold">👥</h1>
+                <p class="mb-0 fs-5">Manage Users</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <a href="{% url 'manager_pending_teachers' %}">
+            <div class="glass-card bg-warning text-dark text-center">
+                <h1 class="fw-bold">👨‍🏫</h1>
+                <p class="mb-0 fs-5">Pending Teacher Approvals</p>
+            </div>
+        </a>
+    </div>
+
+    <div class="col-md-4 mb-4">
+        <a href="{% url 'manager_pending_applications' %}">
+            <div class="glass-card bg-secondary text-white text-center">
+                <h1 class="fw-bold">📑</h1>
+                <p class="mb-0 fs-5">Pending Course Applications</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+
+
+
+
+
+
+<!-- PROGRESS SECTION -->
+<div class="text-center mt-4 mb-5">
+    <a href="{% url 'manager_student_progress' %}"
+       class="btn btn-outline-success"
+       style="font-size: 18px; padding: 12px 25px; border-radius: 14px;">
+        📊 View Student Progress
+    </a>
+</div>
+
+
+{% endblock %}

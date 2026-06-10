@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3 class="fw-bold text-primary">Notifications</h3>
+<hr>
+
+{% for n in notifications %}
+<div class="alert alert-info d-flex justify-content-between align-items-center">
+    <span>{{ n.message }} <br>
+          <small class="text-muted">{{ n.created_at }}</small>
+    </span>
+
+    {% if n.link %}
+    <a href="{{ n.link }}" class="btn btn-success btn-sm">Download</a>
+    {% endif %}
+</div>
+{% empty %}
+<p>No notifications yet.</p>
+{% endfor %}
+
+{% endblock %}

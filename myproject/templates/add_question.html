@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+
+    <h3 class="fw-bold text-primary mb-3">Add Question</h3>
+
+    <div class="card shadow p-4">
+
+        <form method="POST">
+            {% csrf_token %}
+            <label class="form-label">Question</label>
+            <input name="text" class="form-control" placeholder="Enter question">
+
+            <button class="btn btn-success w-100 mt-3">✔ Save Question</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

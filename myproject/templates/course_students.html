@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2 class="fw-bold text-primary">Enrolled Students</h2>
+    <hr>
+
+    <table class="table table-bordered table-hover shadow-sm">
+        <thead class="table-dark">
+            <tr>
+                <th>#</th>
+                <th>Student</th>
+                <th>Email</th>
+                <th>Remove</th>
+            </tr>
+        </thead>
+
+        <tbody>
+        {% for s in students %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ s.student.username }}</td>
+                <td>{{ s.student.email }}</td>
+
+                <td>
+                    <a href="{% url 'remove_student' course.id s.student.id %}" 
+                       class="btn btn-danger btn-sm"
+                       onclick="return confirm('Are you sure you want to remove this student?');">
+                        Remove
+                    </a>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+</div>
+
+{% endblock %}

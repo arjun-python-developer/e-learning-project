@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+
+    <h3 class="fw-bold text-primary mb-3">Add Choice</h3>
+
+    <div class="card shadow p-4">
+
+        <form method="POST">
+            {% csrf_token %}
+            <label class="form-label">Choice</label>
+            <input name="option" class="form-control">
+
+            <div class="form-check mt-3">
+                <input type="checkbox" name="correct" class="form-check-input">
+                <label class="form-check-label">Mark as correct answer</label>
+            </div>
+
+            <button class="btn btn-success w-100 mt-3">
+                ✔ Add Choice
+            </button>
+        </form>
+    </div>
+</div>
+{% endblock %}

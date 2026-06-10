@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+    <h2>{{ course.title }} — Lessons</h2>
+    <hr>
+
+    {% if lessons %}
+        {% for lesson in lessons %}
+            <div class="card mb-3 p-3">
+                <h4>{{ lesson.order }}. {{ lesson.title }}</h4>
+
+                {% if lesson.text_content %}
+                <p>{{ lesson.text_content }}</p>
+                {% endif %}
+
+                {% if lesson.video %}
+                <video width="400" controls>
+                    <source src="{{ lesson.video.url }}" type="video/mp4">
+                </video>
+                {% endif %}
+
+                {% if lesson.pdf %}
+                <a href="{{ lesson.pdf.url }}" class="btn btn-outline-primary" download>
+                    Download PDF
+                </a>
+                {% endif %}
+
+            </div>
+        {% endfor %}
+    {% else %}
+        <p>No lessons added yet for this course.</p>
+    {% endif %}
+
+</div>
+
+{% endblock %}

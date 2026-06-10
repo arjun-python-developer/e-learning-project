@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container mt-4">
+    <h2>My Courses</h2>
+
+    <div class="row">
+        {% for e in enrollments %}
+<div class="card p-3 m-2">
+
+    <h4>{{ e.course.title }}</h4>
+
+    {% if e %}
+        <p>Joined: <b>{{ e.date }}</b></p>
+        <a href="{% url 'student_lessons' e.course.id %}" class="btn btn-primary">
+            View Lessons
+        </a>
+    {% else %}
+        <p>Not Enrolled</p>
+    {% endif %}
+
+</div>
+{% endfor %}
+
+    </div>
+</div>
+{% endblock %}
